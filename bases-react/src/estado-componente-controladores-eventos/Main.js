@@ -19,7 +19,19 @@ const Main = () => {
 
   const [counter, setCounter] = useState(0);
 
-  setTimeout(() => setCounter(counter + 1), 1000);
+  //   setTimeout(() => setCounter(counter + 1), 1000);
+
+  const increase = () => {
+    setCounter(counter + 1);
+  };
+
+  const decrease = () => {
+    setCounter(counter - 1);
+  };
+
+  const reset = () => {
+    setCounter(0);
+  };
 
   console.log("rendering...", counter);
 
@@ -29,6 +41,9 @@ const Main = () => {
       <Hello name="Maya" age={26 + 10} />
       <Hello name={name} age={age} />
       <div>{counter}</div>
+      <button onClick={increase}>Plus</button>
+      <button onClick={decrease}>Minus</button>
+      <button onClick={reset}>Zero</button>
     </div>
   );
 };
