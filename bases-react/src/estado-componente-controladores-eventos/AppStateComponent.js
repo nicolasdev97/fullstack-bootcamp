@@ -15,7 +15,7 @@ const Hello = ({ name, age }) => {
   );
 };
 
-const Main = () => {
+const AppStateComponent = () => {
   const name = "Peter";
   const age = 10;
 
@@ -41,7 +41,7 @@ const Main = () => {
 
   return (
     <div>
-      <h1>Greetings</h1>
+      <h1>AppStateComponent</h1>
       <Hello name="Maya" age={26 + 10} />
       <Hello name={name} age={age} />
       <Display counter={counter} />
@@ -52,4 +52,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default AppStateComponent;

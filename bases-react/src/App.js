@@ -1,7 +1,8 @@
 import "./App.css";
 import Ejercicio1 from "./ejercicio1/Ejercicio1";
 import Mensaje from "./Mensaje";
-import Main from "./estado-componente-controladores-eventos/Main";
+import AppStateComponent from "./estado-componente-controladores-eventos/AppStateComponent";
+import AppComplexState from "./estado-mas-complejo/AppComplexState";
 
 const App = () => {
   const friends = [
@@ -32,7 +33,11 @@ const App = () => {
       </>
       {/* Estado del componente y controladores de eventos */}
       <>
-        <Main />
+        <AppStateComponent />
+      </>
+      {/* Estado más complejo */}
+      <>
+        <AppComplexState />
       </>
     </>
   );
