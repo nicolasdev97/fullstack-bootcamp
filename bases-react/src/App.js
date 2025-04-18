@@ -4,6 +4,7 @@ import Mensaje from "./Mensaje";
 import AppStateComponent from "./estado-componente-controladores-eventos/AppStateComponent";
 import AppComplexState from "./estado-mas-complejo/AppComplexState";
 import Reset from "./resetear-valor-estado/Reset";
+import Function from "./funcion-devuelve-funcion/Function";
 
 const App = () => {
   const friends = [
@@ -44,6 +45,8 @@ const App = () => {
       <>
         <Reset />
       </>
+      {/* Función que devuelve una función */}
+      <Function />
     </>
   );
 };
