@@ -3,6 +3,7 @@ import Ejercicio1 from "./ejercicio1/Ejercicio1";
 import Mensaje from "./Mensaje";
 import AppStateComponent from "./estado-componente-controladores-eventos/AppStateComponent";
 import AppComplexState from "./estado-mas-complejo/AppComplexState";
+import Reset from "./resetear-valor-estado/Reset";
 
 const App = () => {
   const friends = [
@@ -38,6 +39,10 @@ const App = () => {
       {/* Estado más complejo */}
       <>
         <AppComplexState />
+      </>
+      {/* Resetear valor de estado */}
+      <>
+        <Reset />
       </>
     </>
   );
