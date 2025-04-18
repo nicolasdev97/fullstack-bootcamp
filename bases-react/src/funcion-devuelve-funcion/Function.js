@@ -1,3 +1,6 @@
+import ActualizarEstadoForma1 from "./ActualizarEstadoForma1";
+import ActualizarEstadoForma2 from "./ActualizarEstadoForma2";
+
 const Function = () => {
   //De manera más compleja
   const hello = (who) => {
@@ -20,6 +23,8 @@ const Function = () => {
       <button onClick={bye("world")}>Bye "world"</button>
       <button onClick={bye("react")}>Bye "react"</button>
       <button onClick={bye("function")}>Bye "function"</button>
+      <ActualizarEstadoForma1 />
+      <ActualizarEstadoForma2 />
     </div>
   );
 };
