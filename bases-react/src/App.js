@@ -5,6 +5,8 @@ import AppStateComponent from "./estado-componente-controladores-eventos/AppStat
 import AppComplexState from "./estado-mas-complejo/AppComplexState";
 import Reset from "./resetear-valor-estado/Reset";
 import Function from "./funcion-devuelve-funcion/Function";
+import ControladoresEventosComponentesHijos from "./pasando-controladores-eventos-a-componentes-hijos/controladores-eventos-a-componentes-hijos";
+import Ejercicio2 from "./ejercicio2/Ejercicio2";
 
 const App = () => {
   const friends = [
@@ -46,7 +48,15 @@ const App = () => {
         <Reset />
       </>
       {/* Función que devuelve una función */}
-      <Function />
+      <>
+        <Function />
+      </>
+      {/* Pasar controladores de eventos a componentes hijos */}
+      <>
+        <ControladoresEventosComponentesHijos />
+      </>
+      <h1>Ejercicio 2:</h1>
+      <Ejercicio2 />
     </>
   );
 };
