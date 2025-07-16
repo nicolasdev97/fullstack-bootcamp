@@ -7,6 +7,7 @@ import Reset from "./resetear-valor-estado/Reset";
 import Function from "./funcion-devuelve-funcion/Function";
 import ControladoresEventosComponentesHijos from "./pasando-controladores-eventos-a-componentes-hijos/controladores-eventos-a-componentes-hijos";
 import Ejercicio2 from "./ejercicio2/Ejercicio2";
+import Ejercicio3 from "./ejercicio3/Ejercicio3";
 
 const App = () => {
   const friends = [
@@ -57,6 +58,8 @@ const App = () => {
       </>
       <h1>Ejercicio 2:</h1>
       <Ejercicio2 />
+      <h1>Ejercicio 3:</h1>
+      <Ejercicio3 />
     </>
   );
 };
