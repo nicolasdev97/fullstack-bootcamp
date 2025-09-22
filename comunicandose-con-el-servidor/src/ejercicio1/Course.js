@@ -4,15 +4,15 @@ import EjerciciosTotales from "./EjerciciosTotales";
 
 const Course = ({ courses }) => {
   return (
-    <>
+    <ul>
       {courses.map((course) => (
-        <div key={course.id}>
-          <CourseHeader courseHeader={course} />
+        <li key={course.id}>
+          <CourseHeader courseHeader={course.name} />
           <CoursePart courseParts={course.parts} />
           <EjerciciosTotales courseExercices={course.parts} />
-        </div>
+        </li>
       ))}
-    </>
+    </ul>
   );
 };
 
