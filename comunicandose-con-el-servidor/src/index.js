@@ -4,11 +4,30 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+const notes = [
+  {
+    id: 1,
+    content: "HTML is easy from INDEX.JS",
+    important: true,
+  },
+  {
+    id: 2,
+    content: "Browser can execute only JavaScript from INDEX.JS",
+    important: false,
+  },
+  {
+    id: 3,
+    content:
+      "GET and POST are the most important methods of HTTP protocol from INDEX.JS",
+    important: true,
+  },
+];
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App notes={notes} />
   </React.StrictMode>
 );
 
