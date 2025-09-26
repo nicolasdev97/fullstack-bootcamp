@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Filter from "./Filter";
 import PersonForm from "./PersonForm";
 import Persons from "./Persons";
+import ServicesAgendaTelefonica from "./services/ServicesAgendaTelefonica";
 import axios from "axios";
 
 const AppAgendaTelefonica = () => {
@@ -12,9 +13,9 @@ const AppAgendaTelefonica = () => {
 
   useEffect(() => {
     console.log("effect");
-    axios.get("http://localhost:3002/persons").then((response) => {
+    ServicesAgendaTelefonica.getAll().then((returnedPersons) => {
       console.log("promise fulfilled");
-      setPersons(response.data);
+      setPersons(returnedPersons);
     });
   }, []);
   console.log("render", persons.length, "persons");
@@ -30,13 +31,11 @@ const AppAgendaTelefonica = () => {
       if (persons.some((person) => person.name === newName)) {
         alert(`${newName} is already added to phonebook`);
       } else {
-        axios
-          .post("http://localhost:3002/persons", personObject)
-          .then((response) => {
-            setPersons([...persons, response.data]);
-            setNewName("");
-            setNewPhone("");
-          });
+        ServicesAgendaTelefonica.create(personObject).then((createdPerson) => {
+          setPersons([...persons, createdPerson]);
+          setNewName("");
+          setNewPhone("");
+        });
       }
     } else {
       alert("Name and phone number cannot be empty");
