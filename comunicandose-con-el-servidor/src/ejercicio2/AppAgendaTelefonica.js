@@ -31,8 +31,30 @@ const AppAgendaTelefonica = () => {
       number: newNumber,
     };
     if (newName.trim() !== "" && newNumber.trim() !== "") {
-      if (persons.some((person) => person.name === newName)) {
-        alert(`${newName} is already added to phonebook`);
+      const personToUpdate = persons.find((person) => person.name === newName);
+      if (personToUpdate) {
+        if (
+          window.confirm(
+            `${newName} already has a number added to phonebook, replace with a new one?`
+          )
+        ) {
+          const personToUpdateWithNewNumber = {
+            ...personToUpdate,
+            number: newNumber,
+          };
+          ServicesAgendaTelefonica.update(personToUpdateWithNewNumber).then(
+            (updatedPerson) => {
+              setPersons(
+                persons.map((person) =>
+                  person.id !== updatedPerson.id ? person : updatedPerson
+                )
+              );
+              setNewName("");
+              setNewNumber("");
+              console.log(`Updated ${updatedPerson.name} to phonebook`);
+            }
+          );
+        }
       } else {
         ServicesAgendaTelefonica.create(personObject).then((createdPerson) => {
           setPersons([...persons, createdPerson]);

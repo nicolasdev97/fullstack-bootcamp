@@ -31,8 +31,8 @@ const AppFormularios = () => {
 
     notesService
       .update(id, changedNote)
-      .then((returnedNote) => {
-        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
+      .then((updatedNote) => {
+        setNotes(notes.map((note) => (note.id !== id ? note : updatedNote)));
       })
       .catch((error) => {
         alert(`The note '${note.content}' was already deleted from server`);

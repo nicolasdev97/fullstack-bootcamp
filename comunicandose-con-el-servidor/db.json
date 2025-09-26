@@ -3,12 +3,12 @@
     {
       "id": "1",
       "content": "HTML is easy from the JSON-SERVER",
-      "important": false
+      "important": true
     },
     {
       "id": "2",
       "content": "Browser can execute only JavaScript from the JSON-SERVER",
-      "important": false
+      "important": true
     },
     {
       "id": "3",
@@ -18,7 +18,7 @@
     {
       "id": "4",
       "content": "Hola",
-      "important": true
+      "important": false
     },
     {
       "id": "5",
