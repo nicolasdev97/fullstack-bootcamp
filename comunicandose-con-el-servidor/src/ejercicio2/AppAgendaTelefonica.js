@@ -8,6 +8,7 @@ const AppAgendaTelefonica = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newPhone, setNewPhone] = useState("");
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     console.log("effect");
@@ -48,16 +49,16 @@ const AppAgendaTelefonica = () => {
     setNewPhone(event.target.value);
   };
 
-  const [filter, setFilter] = useState("");
-
   const handleFilterChange = (event) => {
     console.log(event.target.value);
     setFilter(event.target.value);
   };
 
-  const filteredPersons = persons.filter((person) =>
-    person.name.includes(filter)
-  );
+  const personsToShow = filter
+    ? persons.filter((person) =>
+        person.name.toLowerCase().includes(filter.toLowerCase())
+      )
+    : persons;
 
   return (
     <div>
@@ -72,7 +73,7 @@ const AppAgendaTelefonica = () => {
         handlePhoneChange={handlePhoneChange}
       />
       <h2>Numbers</h2>
-      <Persons filteredPersons={filteredPersons} persons={persons} />
+      <Persons personsToShow={personsToShow} />
     </div>
   );
 };

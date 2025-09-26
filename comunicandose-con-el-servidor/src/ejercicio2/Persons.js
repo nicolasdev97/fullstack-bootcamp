@@ -1,17 +1,11 @@
-const Persons = ({ filteredPersons, persons }) => {
+const Persons = ({ personsToShow }) => {
   return (
     <div>
-      {filteredPersons.length > 0
-        ? filteredPersons.map((person) => (
-            <p key={person.name}>
-              {person.name} {person.number}
-            </p>
-          ))
-        : persons.map((person) => (
-            <p key={person.name}>
-              {person.name} {person.number}
-            </p>
-          ))}
+      {personsToShow.map((person) => (
+        <p key={person.name}>
+          {person.name} {person.number}
+        </p>
+      ))}
     </div>
   );
 };
