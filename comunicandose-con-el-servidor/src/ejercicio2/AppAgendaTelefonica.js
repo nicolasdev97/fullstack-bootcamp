@@ -30,9 +30,13 @@ const AppAgendaTelefonica = () => {
       if (persons.some((person) => person.name === newName)) {
         alert(`${newName} is already added to phonebook`);
       } else {
-        setPersons([...persons, personObject]);
-        setNewName("");
-        setNewPhone("");
+        axios
+          .post("http://localhost:3002/persons", personObject)
+          .then((response) => {
+            setPersons([...persons, response.data]);
+            setNewName("");
+            setNewPhone("");
+          });
       }
     } else {
       alert("Name and phone number cannot be empty");
