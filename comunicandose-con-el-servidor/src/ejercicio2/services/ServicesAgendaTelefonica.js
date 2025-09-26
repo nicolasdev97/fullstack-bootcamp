@@ -12,6 +12,11 @@ const create = (createdPerson) => {
   return request.then((response) => response.data);
 };
 
-const ServicesAgendaTelefonica = { getAll, create };
+const remove = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`);
+  return request.then((response) => response.data);
+};
+
+const ServicesAgendaTelefonica = { getAll, create, remove };
 
 export default ServicesAgendaTelefonica;

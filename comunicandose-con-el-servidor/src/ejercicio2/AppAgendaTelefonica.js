@@ -3,7 +3,6 @@ import Filter from "./Filter";
 import PersonForm from "./PersonForm";
 import Persons from "./Persons";
 import ServicesAgendaTelefonica from "./services/ServicesAgendaTelefonica";
-import axios from "axios";
 
 const AppAgendaTelefonica = () => {
   const [persons, setPersons] = useState([]);
@@ -11,17 +10,21 @@ const AppAgendaTelefonica = () => {
   const [newPhone, setNewPhone] = useState("");
   const [filter, setFilter] = useState("");
 
+  console.log(`Rendering ${persons.length} persons`);
+
   useEffect(() => {
-    console.log("effect");
-    ServicesAgendaTelefonica.getAll().then((returnedPersons) => {
-      console.log("promise fulfilled");
-      setPersons(returnedPersons);
-    });
+    console.log("The effect hook is being executed");
+    getPersonsFromServer();
   }, []);
-  console.log("render", persons.length, "persons");
+
+  const getPersonsFromServer = () => {
+    ServicesAgendaTelefonica.getAll().then((returnedPersons) => {
+      setPersons(returnedPersons);
+      console.log(`Got ${returnedPersons.length} persons from server`);
+    });
+  };
 
   const addPerson = (event) => {
-    console.log("Name added");
     event.preventDefault();
     const personObject = {
       name: newName,
@@ -35,10 +38,20 @@ const AppAgendaTelefonica = () => {
           setPersons([...persons, createdPerson]);
           setNewName("");
           setNewPhone("");
+          console.log(`Added ${createdPerson.name} to phonebook`);
         });
       }
     } else {
       alert("Name and phone number cannot be empty");
+    }
+  };
+
+  const removePerson = (id) => {
+    if (window.confirm("Are you sure you want to delete this person?")) {
+      const personToRemove = persons.find((person) => person.id === id);
+      ServicesAgendaTelefonica.remove(personToRemove.id);
+      setPersons(persons.filter((person) => person.id !== id));
+      console.log(`Removed ${personToRemove.name} from phonebook`);
     }
   };
 
@@ -76,7 +89,7 @@ const AppAgendaTelefonica = () => {
         handlePhoneChange={handlePhoneChange}
       />
       <h2>Numbers</h2>
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow} removePerson={removePerson} />
     </div>
   );
 };
