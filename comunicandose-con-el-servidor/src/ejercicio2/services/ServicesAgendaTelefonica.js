@@ -12,11 +12,16 @@ const create = (createdPerson) => {
   return request.then((response) => response.data);
 };
 
+const update = (id, newNumber) => {
+  const request = axios.put(`${baseUrl}/${id}`, newNumber);
+  return request.then((response) => response.data);
+};
+
 const remove = (id) => {
   const request = axios.delete(`${baseUrl}/${id}`);
   return request.then((response) => response.data);
 };
 
-const ServicesAgendaTelefonica = { getAll, create, remove };
+const ServicesAgendaTelefonica = { getAll, create, update, remove };
 
 export default ServicesAgendaTelefonica;

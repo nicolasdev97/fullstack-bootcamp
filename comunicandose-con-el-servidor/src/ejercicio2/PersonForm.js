@@ -2,7 +2,7 @@ const PersonForm = ({
   addPerson,
   newName,
   handleNameChange,
-  newPhone,
+  newNumber,
   handlePhoneChange,
 }) => {
   return (
@@ -11,7 +11,7 @@ const PersonForm = ({
         name: <input value={newName} onChange={handleNameChange} />
       </div>
       <div>
-        number: <input value={newPhone} onChange={handlePhoneChange} />
+        number: <input value={newNumber} onChange={handlePhoneChange} />
       </div>
       <div>
         <button type="submit">add</button>
