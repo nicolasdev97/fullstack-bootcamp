@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Note from "./Note";
-import axios from "axios";
+import notesService from "./services/notes";
 
 const AppFormularios = () => {
   const [notes, setNotes] = useState([]);
@@ -9,36 +9,55 @@ const AppFormularios = () => {
 
   useEffect(() => {
     // console.log("effect");
-    axios.get("http://localhost:3001/notes").then((response) => {
-      // console.log("promise fulfilled");
-      setNotes(response.data);
+    // axios.get("http://localhost:3001/notes").then((response) => {
+    //   console.log("promise fulfilled");
+    //   setNotes(response.data);
+    // });
+
+    notesService.getAll().then((returnedNote) => {
+      setNotes(returnedNote);
     });
   }, []);
+
   // console.log("render", notes.length, "notes");
 
   const toggleImportanceOf = (id) => {
-    const url = `http://localhost:3001/notes/${id}`;
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
-    axios.put(url, changedNote).then((response) => {
-      setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
-    });
+    // axios.put(url, changedNote).then((response) => {
+    //   setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
+    // });
+
+    notesService
+      .update(id, changedNote)
+      .then((returnedNote) => {
+        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
+      })
+      .catch((error) => {
+        alert(`The note '${note.content}' was already deleted from server`);
+        setNotes(notes.filter((note) => note.id !== id));
+      });
   };
 
   const addNote = (event) => {
     // console.log("Note added");
     event.preventDefault();
     const noteObject = {
-      id: notes.length + 1,
+      id: (notes.length + 1).toString(),
       content: newNote,
       important: Math.random() < 0.5,
     };
-    axios.post("http://localhost:3001/notes", noteObject).then((response) => {
-      setNotes([...notes, noteObject]);
+
+    // axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+    //   setNotes([...notes, noteObject]);
+    //   setNewNote("A new note...");
+    // });
+
+    notesService.create(noteObject).then((returnedNote) => {
+      setNotes([...notes, returnedNote]);
       setNewNote("A new note...");
     });
-    // setNotes(notes.concat(noteObject));
   };
 
   const handleNoteChange = (event) => {
