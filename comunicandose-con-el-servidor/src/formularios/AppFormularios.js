@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import Note from "./Note";
 import notesService from "./services/notes";
+import Notification from "./Notification";
+import Footer from "./Footer";
 
 const AppFormularios = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("A new note...");
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     // console.log("effect");
@@ -35,7 +38,12 @@ const AppFormularios = () => {
         setNotes(notes.map((note) => (note.id !== id ? note : updatedNote)));
       })
       .catch((error) => {
-        alert(`The note '${note.content}' was already deleted from server`);
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        );
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
         setNotes(notes.filter((note) => note.id !== id));
       });
   };
@@ -70,6 +78,7 @@ const AppFormularios = () => {
   return (
     <>
       <h2>Notes</h2>
+      <Notification message={errorMessage} />
       <ul>
         {notesToShow.map((note) => (
           <Note
@@ -86,6 +95,7 @@ const AppFormularios = () => {
       <button onClick={() => setShowAll(!showAll)}>
         Show {showAll ? "important" : "all"}
       </button>
+      <Footer />
     </>
   );
 };

@@ -3,12 +3,16 @@ import Filter from "./Filter";
 import PersonForm from "./PersonForm";
 import Persons from "./Persons";
 import ServicesAgendaTelefonica from "./services/ServicesAgendaTelefonica";
+import NotificationAgendaTelefonica from "./NotificationAgendaTelefonica";
+import "./AppAgendaTelefonica.css";
 
 const AppAgendaTelefonica = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("correct");
 
   console.log(`Rendering ${persons.length} persons`);
 
@@ -44,6 +48,10 @@ const AppAgendaTelefonica = () => {
           };
           ServicesAgendaTelefonica.update(personToUpdateWithNewNumber).then(
             (updatedPerson) => {
+              setMessage(`Updated ${updatedPerson.name} to phonebook`);
+              setTimeout(() => {
+                setMessage("");
+              }, 5000);
               setPersons(
                 persons.map((person) =>
                   person.id !== updatedPerson.id ? person : updatedPerson
@@ -54,14 +62,34 @@ const AppAgendaTelefonica = () => {
               console.log(`Updated ${updatedPerson.name} to phonebook`);
             }
           );
+          // .catch((error) => {
+          //   setMessage(
+          //     `The error: '${error.response.data.error}' ocurred while updating '${personObject.name}'`
+          //   );
+          //   setTimeout(() => {
+          //     setMessage("");
+          //   }, 5000);
+          // });
         }
       } else {
         ServicesAgendaTelefonica.create(personObject).then((createdPerson) => {
+          setMessage(`Added '${createdPerson.name}' to phonebook`);
+          setTimeout(() => {
+            setMessage("");
+          }, 5000);
           setPersons([...persons, createdPerson]);
           setNewName("");
           setNewNumber("");
           console.log(`Added ${createdPerson.name} to phonebook`);
         });
+        // .catch((error) => {
+        //   setMessage(
+        //     `The error: '${error.response.data.error}' ocurred while creating '${personObject.name}'`
+        //   );
+        //   setTimeout(() => {
+        //     setMessage("");
+        //   }, 5000);
+        // });
       }
     } else {
       alert("Name and phone number cannot be empty");
@@ -69,11 +97,23 @@ const AppAgendaTelefonica = () => {
   };
 
   const removePerson = (id) => {
+    const personToRemove = persons.find((person) => person.id === id);
     if (window.confirm("Are you sure you want to delete this person?")) {
-      const personToRemove = persons.find((person) => person.id === id);
-      ServicesAgendaTelefonica.remove(personToRemove.id);
-      setPersons(persons.filter((person) => person.id !== id));
-      console.log(`Removed ${personToRemove.name} from phonebook`);
+      ServicesAgendaTelefonica.remove(personToRemove.id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+          console.log(`Removed ${personToRemove.name} from phonebook`);
+        })
+        .catch((error) => {
+          setMessage(
+            `Error: '${error.message}', something ocurred when trying to remove '${personToRemove.name}'`
+          );
+          setType("error");
+          setTimeout(() => {
+            setMessage("");
+            setType("correct");
+          }, 5000);
+        });
     }
   };
 
@@ -101,6 +141,7 @@ const AppAgendaTelefonica = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <NotificationAgendaTelefonica message={message} type={type} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>add a new</h3>
       <PersonForm
