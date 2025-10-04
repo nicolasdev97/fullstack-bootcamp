@@ -4,6 +4,8 @@ import AppEjercicio1 from "./ejercicio1/AppEjercicio1";
 import Courses from "./ejercicio1/Courses";
 import AppFormularios from "./formularios/AppFormularios";
 import AppAgendaTelefonica from "./ejercicio2/AppAgendaTelefonica";
+import AppTasasCambio from "./tasas-cambio/AppTasasCambio";
+import AppDatosPaises from "./ejercicio3/AppDatosPaises";
 
 const App = ({ notes }) => {
   return (
@@ -20,6 +22,10 @@ const App = ({ notes }) => {
       <AppFormularios notes={notes} />
       <h1>Ejercicio 2</h1>
       <AppAgendaTelefonica />
+      <h1>App Tasas Cambio</h1>
+      <AppTasasCambio />
+      <h1>Ejercicio 3</h1>
+      <AppDatosPaises />
     </div>
   );
 };
